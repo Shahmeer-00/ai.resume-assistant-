@@ -160,36 +160,3 @@ with col2:
                         st.write(raw_result)
                     except Exception as e:
                         st.error(f"An error occurred: {e}")
-                        def analyze_resume(resume_text, job_description, api_key):
-    client = genai.Client(api_key=api_key)
-    
-    prompt = f"""
-    You are an expert HR Specialist and Applicant Tracking System (ATS) Auditor.
-    Evaluate the following resume against the job description (if provided) or against general industry standards.
-
-    Resume Text:
-    {resume_text}
-
-    Job Description (Optional):
-    {job_description if job_description else "Not provided (Evaluate against generic industry standards for the detected role)"}
-
-    Return your analysis strictly in JSON format matching this exact schema:
-    {{
-        "ats_score": <number between 0 and 100>,
-        "score_breakdown": {{
-            "formatting": <number 0-100>,
-            "keyword_match": <number 0-100>,
-            "relevance": <number 0-100>
-        }},
-        "strengths": [<list of strings>],
-        "critical_improvements": [<list of strings>],
-        "missing_keywords": [<list of strings>]
-    }}
-    Do not include markdown code block formatting like ```json. Return valid JSON only.
-    """
-
-    response = client.models.generate_content(
-        model="gemini-3.8-flash",  # <--- Updated to the required current model
-        contents=prompt
-    )
-    return response.text
