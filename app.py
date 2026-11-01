@@ -41,7 +41,7 @@ def extract_text(uploaded_file):
         return extract_text_from_docx(uploaded_file)
     return ""
 
-# AI Evaluation Function
+# AI Evaluation Function (Updated Model)
 def analyze_resume(resume_text, job_description, api_key):
     client = genai.Client(api_key=api_key)
     
@@ -71,7 +71,7 @@ def analyze_resume(resume_text, job_description, api_key):
     """
 
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.0-flash",  # Updated to current supported model
         contents=prompt
     )
     return response.text
@@ -83,7 +83,6 @@ st.write("Upload your resume, paste a target job description, and get instant fe
 # Sidebar for API Configuration
 with st.sidebar:
     st.header("⚙️ Configuration")
-    # API key prioritized from secrets, falling back to manual input
     env_api_key = st.secrets.get("GEMINI_API_KEY", os.getenv("GEMINI_API_KEY", ""))
     
     if env_api_key:
