@@ -71,7 +71,7 @@ def analyze_resume(resume_text, job_description, api_key):
     """
 
     response = client.models.generate_content(
-        model="gemini-2.0-flash",  # Updated to current supported model
+        model="gemini-2.5-flash",  # Updated to current supported model
         contents=prompt
     )
     return response.text
